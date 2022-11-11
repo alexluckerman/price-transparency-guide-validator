@@ -18,6 +18,7 @@ async function main() {
     .argument('<data-file>', 'path to data file to validate')
     .argument('<schema-version>', 'version of schema to use for validation')
     .option('-o, --out <out>', 'output path')
+    .option('-l, --lightweight', 'run validator without docker (make sure to compile beforehand)')
     .addOption(
       new Option('-t, --target <schema>', 'name of schema to use')
         .choices(config.AVAILABLE_SCHEMAS)

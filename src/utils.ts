@@ -118,3 +118,19 @@ export async function runContainer(schemaPath: string, dataPath: string, outputP
     process.exitCode = 1;
   }
 }
+
+export async function runValidator(schemaPath: string, dataPath: string, outputPath: string) {
+  let validatorCommand = `./bin/validator ${schemaPath} ${dataPath}`;
+  if (outputPath?.length > 0) {
+    validatorCommand += ` -o ${outputPath}`
+  }
+  console.log(`Running command: ${validatorCommand}`);
+  return validatorUtils.promisify(exec)(validatorCommand).then(result => {
+    console.log(result.stdout);
+  })
+  .catch(reason => {
+    console.log(reason.stdout);
+    console.log(reason.stderr);
+    process.exitCode = 1;
+  });
+}

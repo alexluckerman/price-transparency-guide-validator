@@ -9,7 +9,7 @@ This tool is used to validate machine-readable files in JSON format against the 
 - Node (version 16.x)
 - NPM (version 8.5.x)
 - Git (latest version recommended, tested using 2.27.0)
-- Docker (version 19.x)
+- Docker (version 19.x) OR CMake (version 3.10+)
 
 ### Included Libraries
 
@@ -31,6 +31,8 @@ git clone --recurse-submodules https://github.com/CMSgov/price-transparency-guid
 > git submodule update --init
 > ```
 
+#### Using Docker (default)
+
 Make sure that Docker is running:
 
 ```bash
@@ -45,6 +47,8 @@ From the directory containing the clone, build the validator Docker image:
 cd price-transparency-guide-validator
 docker build -t validator .
 ```
+
+#### Using 
 
 Install the Node script with the `-g` global flag so it can be run from any location:
 
@@ -112,6 +116,7 @@ Arguments:
 
 Options:
   -o, --out <out>        output path
+  -l, --lightweight      run validator without docker (make sure to compile beforehand)
   -t, --target <schema>  name of schema to use (choices: "allowed-amounts", "in-network-rates", "provider-reference",
                          "table-of-contents", default: "in-network-rates")
   -h, --help             display help for command

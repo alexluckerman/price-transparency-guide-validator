@@ -3,7 +3,7 @@ import path from 'path';
 import { exec } from 'child_process';
 import fs from 'fs-extra';
 import { OptionValues } from 'commander';
-import { config, runContainer, useRepoVersion } from './utils';
+import { config, runContainer, runValidator, useRepoVersion } from './utils';
 
 export async function validate(dataFile: string, schemaVersion: string, options: OptionValues) {
   // check to see if supplied json file exists
@@ -15,7 +15,11 @@ export async function validate(dataFile: string, schemaVersion: string, options:
   // get the schema that matches the chosen version and target name. then, use it to validate.
   useRepoVersion(schemaVersion, options.target).then(schemaPath => {
     if (schemaPath != null) {
-      runContainer(schemaPath, dataFile, options.out);
+      if (options.lightweight) {
+        runValidator(schemaPath, dataFile, options.out);
+      } else {
+        runContainer(schemaPath, dataFile, options.out);
+      }
     } else {
       console.log('No schema available - not validating.');
       process.exitCode = 1;

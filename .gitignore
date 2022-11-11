@@ -2,6 +2,7 @@ node_modules/**
 out/**
 schema-repo/
 schema-repo/**
+CMakeFiles
 coverage
 validator
 .vscode
